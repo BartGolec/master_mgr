@@ -1,4 +1,4 @@
-package com.mgr.bg;
+package com.mgr.bg.Entity;
 
 import javax.persistence.*;
 
@@ -6,14 +6,28 @@ import javax.persistence.*;
  * Created by Bartosz on 11/19/2018.
  */
 
-@Entity // this tells Hibernate to make table out of this class
-@Table(name = "CSV_FILE")
+@Entity
+@Table(name = "CSVDatabase")
 public class CsvEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    public CsvEntity(String date, int pmax, int CP, int CO, int BPP, int BPO, int BOO, int BOP) {
+        this.date = date;
+        this.Pmax = pmax;
+        this.CP = CP;
+        this.CO = CO;
+        this.BPP = BPP;
+        this.BPO = BPO;
+        this.BOO = BOO;
+        this.BOP = BOP;
+    }
 
+    public CsvEntity(){}
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @Column(name = "Data")
     private String date;
 
     private int Pmax;
@@ -54,13 +68,8 @@ public class CsvEntity {
         this.BOP = BOP;
     }
 
-    public int getId() {
-
+    public Long getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getDate() {
@@ -101,5 +110,20 @@ public class CsvEntity {
 
     public void setBPP(int BPP) {
         this.BPP = BPP;
+    }
+
+    @Override
+    public String toString() {
+        return "CsvEntity{" +
+                "id=" + id +
+                ", date='" + date + '\'' +
+                ", Pmax=" + Pmax +
+                ", CP=" + CP +
+                ", CO=" + CO +
+                ", BPP=" + BPP +
+                ", BPO=" + BPO +
+                ", BOO=" + BOO +
+                ", BOP=" + BOP +
+                '}';
     }
 }
