@@ -1,6 +1,6 @@
 package com.mgr.bg.Service;
 
-import com.mgr.bg.Entity.CsvEntity;
+import com.mgr.bg.Model.CsvEntity;
 import com.mgr.bg.Repository.CsvRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,11 +27,12 @@ public class CsvService {
     public void findEntites(){
         log.info("Find all entitys from " + csvRepository.getClass().getName());
         csvRepository.findAll().forEach(a -> {
-            log.info("Entity with id " + a.getId() + " : " + a.toString());
+            log.info("Model with id " + a.getId() + " : " + a.toString());
         });
     }
 
     // Bean provides Spring context
+
     @Bean
     public CommandLineRunner oparateOnEntitesFromCMD(CsvRepository repository) {
         return (args) -> {

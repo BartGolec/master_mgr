@@ -1,6 +1,6 @@
 package com.mgr.bg.Repository;
 
-import com.mgr.bg.Entity.CsvEntity;
+import com.mgr.bg.Model.CsvEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

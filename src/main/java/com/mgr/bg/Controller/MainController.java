@@ -1,6 +1,6 @@
 package com.mgr.bg.Controller;
 
-import com.mgr.bg.Entity.CsvEntity;
+import com.mgr.bg.Model.CsvEntity;
 import com.mgr.bg.Repository.CsvRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

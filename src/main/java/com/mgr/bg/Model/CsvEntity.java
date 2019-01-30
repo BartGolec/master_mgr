@@ -1,4 +1,4 @@
-package com.mgr.bg.Entity;
+package com.mgr.bg.Model;
 
 import javax.persistence.*;
 
