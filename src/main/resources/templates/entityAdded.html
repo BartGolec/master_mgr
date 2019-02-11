@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Result</h1>
+<p th:text="'Date : ' + ${csvEntity.date}" />
+<p th:text="'Pmax: ' + ${csvEntity.Pmax}" />
+<p th:text="'CP: ' + ${csvEntity.CP}" />
+<p th:text="'CO: ' + ${csvEntity.CO}" />
+<p th:text="'BPP: ' + ${csvEntity.BPP}" />
+<p th:text="'BPO: ' + ${csvEntity.BPO}" />
+<p th:text="'BOO: ' + ${csvEntity.BOO}" />
+<p th:text="'BOP: ' + ${csvEntity.BOP}" />
+
+<a href="/entity">Submit another data</a>
+</body>
+</html>

@@ -31,6 +31,8 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-web-services')
 	compile('org.springframework.boot:spring-boot-devtools')
+	//compile group: 'org.springframework', name: 'spring-webmvc', version: '4.0.0.RELEASE'
+
 
 	// Use MySQL Connector-J
 	compile('mysql:mysql-connector-java')

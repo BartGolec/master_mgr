@@ -16,6 +16,5 @@ public class BgApplication {
 
 		System.out.println("Welcome to master thesis application.");
 		System.out.println("Made by Bartosz Golec");
-
 	}
 }
