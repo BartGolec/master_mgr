@@ -1,5 +1,6 @@
 package com.mgr.bg.Configuration;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
@@ -13,6 +14,7 @@ import javax.servlet.ServletRegistration;
 /**
  * Created by Bartosz on 11/25/2018.
  */
+@Configuration
 public class ServletConfig implements WebApplicationInitializer {
 
     @Override

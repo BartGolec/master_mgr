@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <title>TEMPLATE</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+    <style>
+        .specialClass {
+background-image: url("https://i.ibb.co/Hr95MfJ/agh-logo.png");
+background-size: contain;
+background-repeat: no-repeat;
+height: 100%;}
+    </style>
+</head>
+<body>
+<div class="jumbotron text-center specialClass" style="margin-bottom:0">
+    <h1>Application for analysis a distribution network using OpenDSS simulator</h1>
+    <p>Master thesis project</p>
+</div>
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <a class="navbar-brand" href="/"><i class="fas fa-home"></i>
+        Master Thesis</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    Actions
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/data/all">See all data</a>
+                    <a class="dropdown-item" href="/file">Upload a file</a>
+                    <a class="dropdown-item" href="/entity">Add data manually</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">About the author</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+
+<h2>Enter grid parameters :</h2>
+<form  action="#" th:action="@{/addSingleDataEntity}" th:object="${singleDataEntity}" method="post">
+    <div class="form-group w-25">
+        <label for="date">Date:</label>
+        <input type="date" class="form-control" id="date" th:field="*{date}" required>
+    </div>
+    <div class="form-group w-25">
+        <label for="pmax">Pmax:</label>
+        <input type="number" class="form-control" id="pmax" th:field="*{Pmax}" step="any">
+    </div>
+    <div class="form-group w-25">
+        <label for="cp">Cp:</label>
+        <input type="number" class="form-control" id="cp" th:field="*{CP}" step="any">
+    </div>
+    <div class="form-group w-25">
+        <label for="co">Co:</label>
+        <input type="number" class="form-control" id="co" th:field="*{CO}" step="any">
+    </div>
+    <div class="form-group w-25">
+        <label for="bpp">Bpp:</label>
+        <input type="number" class="form-control" id="bpp" th:field="*{BPP}" step="any">
+    </div>
+    <div class="form-group w-25">
+        <label for="bpo">Bpo:</label>
+        <input type="number" class="form-control" id="bpo" th:field="*{BPO}" step="any">
+    </div>
+    <div class="form-group w-25">
+        <label for="boo">Boo:</label>
+        <input type="number" class="form-control" id="boo" th:field="*{BOO}" step="any">
+    </div>
+    <div class="form-group w-25">
+        <label for="bop">Bop:</label>
+        <input type="number" class="form-control" id="bop" th:field="*{BOP}" step="any">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="reset" class="btn btn-primary">Reset</button>
+</form>
+</div>
+
+<div class="jumbotron text-center" style="margin-bottom:0">
+    <p>Made by Bartosz Golec</p>
+</div>
+</body>
+</html>

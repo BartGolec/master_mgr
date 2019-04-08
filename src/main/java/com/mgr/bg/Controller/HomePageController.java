@@ -1,6 +1,5 @@
 package com.mgr.bg.Controller;
 
-import com.mgr.bg.BgApplication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -17,11 +16,9 @@ public class HomePageController {
 
     private static final Logger log = LoggerFactory.getLogger(HomePageController.class);
 
-
     @GetMapping("")
-    //@ResponseBody - po usunięciu zwraca whitelabel error page
     public String index(){
         log.info("Home Page Controller");
-        return "index";
+        return "homePage";
     }
 }

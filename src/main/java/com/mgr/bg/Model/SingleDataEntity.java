@@ -7,10 +7,10 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name = "CSVDatabase")
-public class CsvEntity {
+@Table(name = "singleData")
+public class SingleDataEntity {
 
-    public CsvEntity(String date, int pmax, int CP, int CO, int BPP, int BPO, int BOO, int BOP) {
+    public SingleDataEntity(String date, int pmax, int CP, int CO, int BPP, int BPO, int BOO, int BOP) {
         this.date = date;
         this.Pmax = pmax;
         this.CP = CP;
@@ -21,52 +21,28 @@ public class CsvEntity {
         this.BOP = BOP;
     }
 
-    public CsvEntity(){}
+    public SingleDataEntity(){}
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "Data")
+    @Column(name = "Date")
     private String date;
 
-    private int Pmax;
+    private double Pmax;
 
-    private int CP;
+    private double CP;
 
-    private int CO;
+    private double CO;
 
-    private int BPP;
+    private double BPP;
 
-    private int BPO;
+    private double BPO;
 
-    private int BOO;
+    private double BOO;
 
-    private int BOP;
-
-    public int getBPO() {
-        return BPO;
-    }
-
-    public void setBPO(int BPO) {
-        this.BPO = BPO;
-    }
-
-    public int getBOO() {
-        return BOO;
-    }
-
-    public void setBOO(int BOO) {
-        this.BOO = BOO;
-    }
-
-    public int getBOP() {
-        return BOP;
-    }
-
-    public void setBOP(int BOP) {
-        this.BOP = BOP;
-    }
+    private double BOP;
 
     public Long getId() {
         return id;
@@ -80,41 +56,65 @@ public class CsvEntity {
         this.date = date;
     }
 
-    public int getPmax() {
+    public double getPmax() {
         return Pmax;
     }
 
-    public void setPmax(int pmax) {
+    public void setPmax(double pmax) {
         Pmax = pmax;
     }
 
-    public int getCP() {
+    public double getCP() {
         return CP;
     }
 
-    public void setCP(int CP) {
+    public void setCP(double CP) {
         this.CP = CP;
     }
 
-    public int getCO() {
+    public double getCO() {
         return CO;
     }
 
-    public void setCO(int CO) {
+    public void setCO(double CO) {
         this.CO = CO;
     }
 
-    public int getBPP() {
+    public double getBPP() {
         return BPP;
     }
 
-    public void setBPP(int BPP) {
+    public void setBPP(double BPP) {
         this.BPP = BPP;
+    }
+
+    public double getBPO() {
+        return BPO;
+    }
+
+    public void setBPO(double BPO) {
+        this.BPO = BPO;
+    }
+
+    public double getBOO() {
+        return BOO;
+    }
+
+    public void setBOO(double BOO) {
+        this.BOO = BOO;
+    }
+
+    public double getBOP() {
+        return BOP;
+    }
+
+    public void setBOP(double BOP) {
+        this.BOP = BOP;
     }
 
     @Override
     public String toString() {
-        return "CsvEntity{" +
+        return "SingleDataEntity{" +
                 "id=" + id +
                 ", date='" + date + '\'' +
                 ", Pmax=" + Pmax +

@@ -4,9 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
@@ -28,9 +26,21 @@ public class MvcConfig implements WebMvcConfigurer {
         InternalResourceViewResolver internalResourceViewResolver = new InternalResourceViewResolver();
 
         internalResourceViewResolver.setViewClass(JstlView.class);
-     //   internalResourceViewResolver.setPrefix("/resources/templates/"); //TODO Still works
-        internalResourceViewResolver.setSuffix(".html");
+     //   internalResourceViewResolver.setPrefix("/resources/templates/");
+       // internalResourceViewResolver.setSuffix(".html");
 
         return internalResourceViewResolver;
+    }
+
+    @Override
+    public void addResourceHandlers(final ResourceHandlerRegistry registry) {
+        registry
+                .addResourceHandler("/resources/**")
+                .addResourceLocations("/resources/templates/", "/resources/");
+    }
+
+    @Override
+    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+        configurer.enable();
     }
 }

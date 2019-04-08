@@ -1,6 +1,6 @@
 package com.mgr.bg.Repository;
 
-import com.mgr.bg.Model.CsvEntity;
+import com.mgr.bg.Model.SingleDataEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public interface CsvRepository extends JpaRepository<CsvEntity, Long> {
+public interface SingleDataRepository extends JpaRepository<SingleDataEntity, Long> {
 }
