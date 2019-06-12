@@ -37,50 +37,64 @@ height: 100%;}
                 </a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="/data/all">See all data</a>
-                    <a class="dropdown-item" href="/file">Upload a file</a>
+                    <a class="dropdown-item" href="/seeDataFromCertainNode">See data for certain node</a>
                     <a class="dropdown-item" href="/entity">Add data manually</a>
+                    <a class="dropdown-item" href="/file">Upload a file</a>
+                    <a class="dropdown-item" href="/chooseOpenDssModelToBeUpdated">OpenDSS interaction</a>
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">About the author</a>
+                <a class="nav-link" href="/applicationManual">Application manual</a>
             </li>
         </ul>
     </div>
 </nav>
 
 <div class="container">
-<h2>Grid parameters added :</h2>
+    <div class="row">
+<h3 style="margin-top:10px">Grid parameters added :</h3>
+    </div>
+    <div class="row">
     <u1 class="list-group">
         <li class="list-group-item w-25">
-            <p th:text="'Date : ' + ${singleDataEntity.date}" />
+            <p th:text="'File name : ' + ${batchDataEntity.fileName}" />
         </li>
         <li class="list-group-item w-25">
-            <p th:text="'Pmax: ' + ${singleDataEntity.Pmax}" />
+            <p th:text="'Date : ' + ${batchDataEntity.date}" />
         </li>
         <li class="list-group-item w-25">
-            <p th:text="'CP: ' + ${singleDataEntity.CP}" />
+            <p th:text="'Pmax: ' + ${batchDataEntity.Pmax}" />
         </li>
         <li class="list-group-item w-25">
-            <p th:text="'CO: ' + ${singleDataEntity.CO}" />
+            <p th:text="'CP: ' + ${batchDataEntity.CP}" />
         </li>
         <li class="list-group-item w-25">
-            <p th:text="'BPP: ' + ${singleDataEntity.BPP}" />
+            <p th:text="'CO: ' + ${batchDataEntity.CO}" />
         </li>
         <li class="list-group-item w-25">
-            <p th:text="'BPO: ' + ${singleDataEntity.BPO}" />
+            <p th:text="'BPP: ' + ${batchDataEntity.BPP}" />
         </li>
         <li class="list-group-item w-25">
-            <p th:text="'BOO: ' + ${singleDataEntity.BOO}" />
+            <p th:text="'BPO: ' + ${batchDataEntity.BPO}" />
         </li>
         <li class="list-group-item w-25">
-            <p th:text="'BOP: ' + ${singleDataEntity.BOP}" />
+            <p th:text="'BOO: ' + ${batchDataEntity.BOO}" />
+        </li>
+        <li class="list-group-item w-25">
+            <p th:text="'BOP: ' + ${batchDataEntity.BOP}" />
         </li>
     </u1>
-<a href="/entity">Submit another data</a>
-
+    </div>
+<div class="row">
+    <a class="btn btn-info float-left" style="margin-top:10px; margin-bottom:10px" href="/entity">Submit another data</a>
+    </div>
 </div>
 <div class="jumbotron text-center" style="margin-bottom:0">
-    <p>Made by Bartosz Golec</p>
-</div>
+    <p>Author : Bartosz Golec</p>
+    <p>Promoter : Doctor of Engineering Krzysztof Piątek</p>
+    <p>Faculty of Electrical Engineering,
+        Automatics, Computer Science
+        and Biomedical Engineering</p>
+    <p>Department of Power Electronics and Energy Control Systems </p></div>
 </body>
 </html>

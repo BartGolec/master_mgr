@@ -1,19 +1,16 @@
 package com.mgr.bg.Controller;
 
-import com.mgr.bg.Model.SingleDataEntity;
-import com.mgr.bg.Repository.SingleDataRepository;
+import com.mgr.bg.Model.BatchDataEntity;
+import com.mgr.bg.Repository.BatchDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.transaction.Transactional;
-import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Created by Bartosz on 11/26/2018.
@@ -24,30 +21,52 @@ import javax.validation.Valid;
 public class SingleDataEntityController {
 
     @Autowired
-    private SingleDataRepository singleDataRepository;
+    private BatchDataRepository batchDataRepository;
 
     @RequestMapping(value = "/entity", method = RequestMethod.GET)
     public ModelAndView showForm(){
-        return new ModelAndView("addSingleDataEntity", "singleDataEntity", new SingleDataEntity());
+        return new ModelAndView("addSingleDataEntity", "batchDataEntity", new BatchDataEntity());
     }
 
-    @PostMapping(value = "/addSingleDataEntity")
-    public String submit(@Valid @ModelAttribute("singleDataEntity") SingleDataEntity singleDataEntity,
+    @PostMapping(value = "/addBatchDataEntity")
+    public String submit(@ModelAttribute("batchDataEntity") BatchDataEntity batchDataEntity,
                          BindingResult result, ModelMap model) {
         if (result.hasErrors()) {
             return "wrongDataInputError";
         }
-        model.addAttribute("date", singleDataEntity.getDate());
-        model.addAttribute("Pmax", singleDataEntity.getPmax());
-        model.addAttribute("CP", singleDataEntity.getCP());
-        model.addAttribute("CO", singleDataEntity.getCP());
-        model.addAttribute("BPP", singleDataEntity.getBPP());
-        model.addAttribute("BPO", singleDataEntity.getBPO());
-        model.addAttribute("BOO", singleDataEntity.getBOO());
-        model.addAttribute("BOP", singleDataEntity.getBOP());
+        model.addAttribute("fileName", batchDataEntity.getFileName());
+        model.addAttribute("date", batchDataEntity.getDate());
+        model.addAttribute("Pmax", batchDataEntity.getPmax());
+        model.addAttribute("CP", batchDataEntity.getCP());
+        model.addAttribute("CO", batchDataEntity.getCP());
+        model.addAttribute("BPP", batchDataEntity.getBPP());
+        model.addAttribute("BPO", batchDataEntity.getBPO());
+        model.addAttribute("BOO", batchDataEntity.getBOO());
+        model.addAttribute("BOP", batchDataEntity.getBOP());
 
-        singleDataRepository.save(singleDataEntity);
+        batchDataRepository.save(batchDataEntity);
 
         return "singleDataEntityAdded";
     }
+
+    @GetMapping(value = "/seeDataFromCertainNode")
+    public ModelAndView showFileNameForm() {
+        return new ModelAndView("seeDataFromCertainNodeView", "batchDataEntity", new BatchDataEntity());
+    }
+
+    @PostMapping(value = "/retrieveDataFromCertainNode")
+    public String submitDataFromCertainNode(@ModelAttribute("batchDataEntity") BatchDataEntity batchDataEntity,
+                         BindingResult result, ModelMap model) {
+        if (result.hasErrors()) {
+            return "wrongDataInputError";
+        }
+
+        model.addAttribute("fileName", batchDataEntity.getFileName());
+
+        List<BatchDataEntity> batchDataEntityList = batchDataRepository.findByFileName(batchDataEntity.getFileName());
+        model.addAttribute("batchDataList", batchDataEntityList);
+
+        return "retrieveDataFromCertainNodeView";
+    }
+
 }

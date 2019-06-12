@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
     <title>TEMPLATE</title>
@@ -49,18 +49,20 @@ height: 100%;}
         </ul>
     </div>
 </nav>
-
 <div class="container">
-    <ul class="list-group">
-        <li class="list-group-item list-group-item-warning">Wrong data input</li>
-    </ul>
 
-<h4>Please enter correct data</h4>
-<table>
-    <tr>
-        <td><a href="/entity">Retry</a></td>
-    </tr>
-</table>
+    <form  action="" th:action="@{/getAllLoadsFromOpenDssModel}" th:object="${openDssModelFilePath}" method="post">
+        <div class="form-group w-50">
+            <label for="filePath">
+                <div class="row list-group-item list-group-item-info" style="margin-top:10px; margin-bottom:10px">
+                <h5 style="padding-top:10px">Enter directory for OpenDss model :</h5>
+                </div>
+            </label>
+            <input type="text" class="form-control" id="filePath" th:field="*{modelFilePath}" required placeholder="OpenDss model file path" title="For example 'C:\Users\...\OpenDssModel.dss'">
+        </div>
+        <button type="submit" class="btn btn-primary" style="padding-top:10px">Submit</button>
+    </form>
+
 </div>
 
 <div class="jumbotron text-center" style="margin-bottom:0">
@@ -72,4 +74,3 @@ height: 100%;}
     <p>Department of Power Electronics and Energy Control Systems </p></div>
 </body>
 </html>
-

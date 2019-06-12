@@ -27,18 +27,4 @@ public class ManualEntityManager {
             log.info("Model with id " + a.getId() + " : " + a.toString());
         });
     }
-
-//    @Bean
-//    public CommandLineRunner logAllEntities(SingleDataRepository repository) {
-//        return (args) -> {
-//            // Save entity
-//            //repository.save(new SingleDataEntity("", 1,2,3,4,5,6,7));
-//
-//            // fetch all CsvEntities
-//            log.info("Csv Entities found with findAll():");
-//            for (SingleDataEntity eachRow : repository.findAll()) {
-//                log.info(eachRow.toString());
-//            }
-//        };
-//    }
 }

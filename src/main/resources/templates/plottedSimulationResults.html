@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
     <title>TEMPLATE</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -18,6 +19,9 @@ height: 100%;}
     </style>
 </head>
 <body>
+
+<p th:text="${chartName}" hidden id="hiddenImgId" />
+
 <div class="jumbotron text-center specialClass" style="margin-bottom:0">
     <h1>Application for analysis a distribution network <br>using OpenDSS simulator</h1>
     <p>Master thesis project</p>
@@ -49,18 +53,22 @@ height: 100%;}
         </ul>
     </div>
 </nav>
-
 <div class="container">
-    <ul class="list-group">
-        <li class="list-group-item list-group-item-warning">Wrong data input</li>
-    </ul>
-
-<h4>Please enter correct data</h4>
-<table>
-    <tr>
-        <td><a href="/entity">Retry</a></td>
-    </tr>
-</table>
+    <h3>Chart below shows line-line voltage value for every node</h3>
+    <a href="" id="imgLink1"  target="_blank">
+    <img src="" id="chart1" class="img-fluid" style="cursor: pointer;" onclick="window.open(this.src)">
+    </a>
+    <p> Chart doesn't contain SOURCEBUS voltage value due to its negative impact on charts visibility</p>
+    <div class="col-sm-4">
+        <div class="card bg-secondary text-white shadow">
+            <div class="card-body">
+                SOURCEBUS value :
+                <div class="text-white-50">
+                    <p th:text="${sourceBusValue}"/>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="jumbotron text-center" style="margin-bottom:0">
@@ -70,6 +78,13 @@ height: 100%;}
         Automatics, Computer Science
         and Biomedical Engineering</p>
     <p>Department of Power Electronics and Energy Control Systems </p></div>
+
+<script>
+        document.getElementById('chart1').src=document.getElementById('hiddenImgId').innerHTML
+    </script>
+
+<script>
+        document.getElementById('imgLink1').href=document.getElementById('hiddenImgId').innerHTML
+    </script>
 </body>
 </html>
-

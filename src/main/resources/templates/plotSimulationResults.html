@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
     <title>TEMPLATE</title>
@@ -50,19 +50,57 @@ height: 100%;}
     </div>
 </nav>
 
+<script>
+        document.getElementById('modelFilePath').innerHTML = document.getElementById('hiddenOpenDssModelFilePath').innerHTML
+    </script>
+
 <div class="container">
-    <ul class="list-group">
-        <li class="list-group-item list-group-item-warning">Wrong data input</li>
-    </ul>
+<form   th:action="@{/plottedResults}"  th:object="${simulationResultsCheckboxes}" method="post">
 
-<h4>Please enter correct data</h4>
-<table>
-    <tr>
-        <td><a href="/entity">Retry</a></td>
-    </tr>
-</table>
+    <div class="form-group w-50">
+        <p th:text="${openDssModelFilePath}" hidden id="hiddenOpenDssModelFilePath" />
+        <label for="modelFilePath">
+            <h4 id="modelFilePathLabel" style="padding-top:10px">Directory for OpenDss model :</h4>
+        </label>
+        <input type="text" class="form-control" id="modelFilePath" th:field="*{openDssModelFilePath}" required placeholder="OpenDss model file path" title="For example 'C:\Users\...\OpenDssModel.dss'">
+    </div>
+
+    <div class="form-group w-50">
+        <label for="openDssExeFilePath1">
+            <h4 style="padding-top:10px">Enter directory for OpenDss.exe file :</h4>
+        </label>
+        <input type="text" class="form-control" id="openDssExeFilePath1" th:field="*{openDssExeFilePath}" required placeholder="OpenDss.exe file path" title="For example 'C:\Program Files\OpenDSS\x64\OpenDss.exe'">
+    </div>
+
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox"  id="votlages1"  th:field="*{voltages}">
+        <label class="form-check-label" for="votlages1">Plot Voltage</label>
+    </div>
+
+    <!--<div class="form-check">-->
+        <!--<input class="form-check-input" type="checkbox"  id="currents1"  th:field="*{currents}">-->
+        <!--<label class="form-check-label" for="currents1">Currents</label>-->
+    <!--</div>-->
+
+    <!--<div class="form-check">-->
+        <!--<input class="form-check-input" type="checkbox"  id="powers1"  th:field="*{powers}">-->
+        <!--<label class="form-check-label" for="powers1">Powers</label>-->
+    <!--</div>-->
+
+    <!--<div class="form-check">-->
+        <!--<input class="form-check-input" type="checkbox"  id="losses1"  th:field="*{losses}">-->
+        <!--<label class="form-check-label" for="losses1">Losses</label>-->
+    <!--</div>-->
+
+    <!--<div class="form-check">-->
+        <!--<input class="form-check-input" type="checkbox"  id="taps1"  th:field="*{taps}">-->
+        <!--<label class="form-check-label" for="taps1">Taps</label>-->
+    <!--</div>-->
+
+    <button type="submit" class="btn btn-primary" style="padding-top:10px">Submit</button>
+
+</form>
 </div>
-
 <div class="jumbotron text-center" style="margin-bottom:0">
     <p>Author : Bartosz Golec</p>
     <p>Promoter : Doctor of Engineering Krzysztof Piątek</p>
@@ -72,4 +110,3 @@ height: 100%;}
     <p>Department of Power Electronics and Energy Control Systems </p></div>
 </body>
 </html>
-

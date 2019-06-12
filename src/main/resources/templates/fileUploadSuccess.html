@@ -48,43 +48,707 @@ height: 100%;}
                 </a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="/data/all">See all data</a>
-                    <a class="dropdown-item" href="/file">Upload a file</a>
+                    <a class="dropdown-item" href="/seeDataFromCertainNode">See data for certain node</a>
                     <a class="dropdown-item" href="/entity">Add data manually</a>
+                    <a class="dropdown-item" href="/file">Upload a file</a>
+                    <a class="dropdown-item" href="/chooseOpenDssModelToBeUpdated">OpenDSS interaction</a>
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">About the author</a>
+                <a class="nav-link" href="/applicationManual">Application manual</a>
             </li>
         </ul>
     </div>
 </nav>
 <div class="container">
-<h2>File has been added successfully</h2>
+    <div class="row list-group-item list-group-item-success" style="margin-top:10px; margin-bottom:10px">
+        <h3>File has been added successfully </h3>
+    </div>
+    <p th:text="${fileName}">
+    <br>
 
-<p th:text="'Pmax: ' + ${fileDataCheckboxes.pmax}" />
-<p th:text="'CP: ' + ${fileDataCheckboxes.cp}" />
-<p th:text="'CO: ' + ${fileDataCheckboxes.co}" />
-<p th:text="'BPP: ' + ${fileDataCheckboxes.bpp}" />
-<p th:text="'BPO: ' + ${fileDataCheckboxes.bpp}" />
-<p th:text="'BOO: ' + ${fileDataCheckboxes.boo}" />
-    <p th:text="'BOP: ' + ${fileDataCheckboxes.bop}" />
+    <p th:text="${chartName1}" hidden id="hiddenImgId1" />
+    <p th:text="${chartName2}" hidden id="hiddenImgId2" />
+    <p th:text="${chartName3}" hidden id="hiddenImgId3" />
+    <p th:text="${chartName4}" hidden id="hiddenImgId4" />
+    <p th:text="${chartName5}" hidden id="hiddenImgId5" />
+    <p th:text="${chartName6}" hidden id="hiddenImgId6" />
+    <p th:text="${chartName7}" hidden id="hiddenImgId7" />
 
-    <p th:text="${chartName}" hidden id="hiddenImgId" />
+    <p th:text="${minimalValue1}" hidden id="hiddenMinimalValueId1" />
+    <p th:text="${minimalValue2}" hidden id="hiddenMinimalValueId2" />
+    <p th:text="${minimalValue3}" hidden id="hiddenMinimalValueId3" />
+    <p th:text="${minimalValue4}" hidden id="hiddenMinimalValueId4" />
+    <p th:text="${minimalValue5}" hidden id="hiddenMinimalValueId5" />
+    <p th:text="${minimalValue6}" hidden id="hiddenMinimalValueId6" />
+    <p th:text="${minimalValue7}" hidden id="hiddenMinimalValueId7" />
 
-    <img src="" id="chart1" alt="Script doesn't work">
+    <p th:text="${maximumValue1}" hidden id="hiddenMaximumValueId1" />
+    <p th:text="${maximumValue2}" hidden id="hiddenMaximumValueId2" />
+    <p th:text="${maximumValue3}" hidden id="hiddenMaximumValueId3" />
+    <p th:text="${maximumValue4}" hidden id="hiddenMaximumValueId4" />
+    <p th:text="${maximumValue5}" hidden id="hiddenMaximumValueId5" />
+    <p th:text="${maximumValue6}" hidden id="hiddenMaximumValueId6" />
+    <p th:text="${maximumValue7}" hidden id="hiddenMaximumValueId7" />
 
-    <!--<script src="fileUploadSuccessScripts.js"></script>-->
+    <p th:text="${averageValue1}" hidden id="hiddenAverageValueId1" />
+    <p th:text="${averageValue2}" hidden id="hiddenAverageValueId2" />
+    <p th:text="${averageValue3}" hidden id="hiddenAverageValueId3" />
+    <p th:text="${averageValue4}" hidden id="hiddenAverageValueId4" />
+    <p th:text="${averageValue5}" hidden id="hiddenAverageValueId5" />
+    <p th:text="${averageValue6}" hidden id="hiddenAverageValueId6" />
+    <p th:text="${averageValue7}" hidden id="hiddenAverageValueId7" />
+
+    <p th:text="${datePeriodValue1}" hidden id="hiddenDatePeriodValueId1" />
+    <p th:text="${datePeriodValue2}" hidden id="hiddenDatePeriodValueId2" />
+    <p th:text="${datePeriodValue3}" hidden id="hiddenDatePeriodValueId3" />
+    <p th:text="${datePeriodValue4}" hidden id="hiddenDatePeriodValueId4" />
+    <p th:text="${datePeriodValue5}" hidden id="hiddenDatePeriodValueId5" />
+    <p th:text="${datePeriodValue6}" hidden id="hiddenDatePeriodValueId6" />
+    <p th:text="${datePeriodValue7}" hidden id="hiddenDatePeriodValueId7" />
+
+    <div class="row shadow" style="padding-top:80px">
+        <div class="col-sm-12" style="padding-bottom:30px">
+            <li class="list-group-item list-group-item-secondary">PMAX - Maximal active power consumption throughout the day</li>
+
+            <div class="modal fade" id="myModal">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Average power values</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <dl>
+                                <dt>Date</dt>
+                                <dd>- Date of certain measurement</dd>
+                                <dt>PMAX</dt>
+                                <dd>- Maximal active power</dd>
+                                <dt>CP</dt>
+                                <dd>- Average active power consumed</dd>
+                                <dt>CO</dt>
+                                <dd>- Average active power given</dd>
+                                <dt>BPP</dt>
+                                <dd>- Average reactive inductive-power consumed</dd>
+                                <dt>BPO</dt>
+                                <dd>- Average reactive inductive-power given</dd>
+                                <dt>BOO</dt>
+                                <dd>- Average reactive conductive-power given</dd>
+                                <dt>BOP</dt>
+                                <dd>- Average reactive conductive-power consumed</dd>
+                            </dl>
+                            <div class="row">
+                                <table class="table table-hover table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th> Date </th>
+                                        <th> PMAX [kW] </th>
+                                        <th> CP [kW] </th>
+                                        <th> CO [kW] </th>
+                                        <th> BPP [kvar] </th>
+                                        <th> BPO [kvar] </th>
+                                        <th> BOO [kvar] </th>
+                                        <th> BOP [var] </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:if="${listOfPowerEntities.empty}">
+                                        <td colspan="2"> No Data Available </td>
+                                    </tr>
+                                    <tr th:each="load : ${listOfPowerEntities}">
+                                        <td><span th:text="${load.date}"> Date </span></td>
+                                        <td><span th:text="${load.Pmax}"> PMAX </span></td>
+                                        <td><span th:text="${load.CP}"> CP </span></td>
+                                        <td><span th:text="${load.CO}"> CO </span></td>
+                                        <td><span th:text="${load.BPP}"> BPP </span></td>
+                                        <td><span th:text="${load.BPO}"> BPO </span></td>
+                                        <td><span th:text="${load.BOO}"> BOO </span></td>
+                                        <td><span th:text="${load.BOP}"> BOP </span></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row" style="margin-bottom: 25px;">
+                                <div class="col-sm-4">
+                                    <div class="card bg-secondary text-white shadow">
+                                        <div class="card-body">
+                                            CP maximum average  value :
+                                            <div class="text-white-50">
+                                                <p th:text="${maximumActivePowerConsumedValue}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="card bg-secondary text-white shadow">
+                                        <div class="card-body">
+                                            CP minimal average  value :
+                                            <div class="text-white-50">
+                                                <p th:text="${minimalActivePowerConsumedValue}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" style="margin-bottom: 25px;">
+                                <div class="col-sm-4">
+                                    <div class="card bg-secondary text-white shadow">
+                                        <div class="card-body">
+                                            CO maximum average  value :
+                                            <div class="text-white-50">
+                                                <p th:text="${maximalActivePowerGivenValue}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="card bg-secondary text-white shadow">
+                                        <div class="card-body">
+                                            CO minimal average value :
+                                            <div class="text-white-50">
+                                                <p th:text="${minimalActivePowerGivenValue}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" style="margin-bottom: 25px;">
+                                <div class="col-sm-4">
+                                    <div class="card bg-secondary text-white shadow">
+                                        <div class="card-body">
+                                            BPP maximum average  value :
+                                            <div class="text-white-50">
+                                                <p th:text="${maximumReactiveInductivePowerConsumedValue}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="card bg-secondary text-white shadow">
+                                        <div class="card-body">
+                                            BPP minimal average value :
+                                            <div class="text-white-50">
+                                                <p th:text="${minimalReactiveInductivePowerConsumedValue}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" style="margin-bottom: 25px;">
+                                <div class="col-sm-4">
+                                    <div class="card bg-secondary text-white shadow">
+                                        <div class="card-body">
+                                            BPO maximum average  value :
+                                            <div class="text-white-50">
+                                                <p th:text="${maximumReactiveInductivePowerGivenValue}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="card bg-secondary text-white shadow">
+                                        <div class="card-body">
+                                            BPO minimal average value :
+                                            <div class="text-white-50">
+                                                <p th:text="${minimalReactiveInductivePowerGivenValue}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" style="margin-bottom: 25px;">
+                                <div class="col-sm-4">
+                                    <div class="card bg-secondary text-white shadow">
+                                        <div class="card-body">
+                                            BOO maximum average  value :
+                                            <div class="text-white-50">
+                                                <p th:text="${maximumReactiveConductivePowerGivenValue}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="card bg-secondary text-white shadow">
+                                        <div class="card-body">
+                                            BOO minimal average value :
+                                            <div class="text-white-50">
+                                                <p th:text="${minimalReactiveConductivePowerGivenValue}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" style="margin-bottom: 25px;">
+                                <div class="col-sm-4">
+                                    <div class="card bg-secondary text-white shadow">
+                                        <div class="card-body">
+                                            BPO maximum average  value :
+                                            <div class="text-white-50">
+                                                <p th:text="${maximumReactiveConductivePowerConsumedValue}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="card bg-secondary text-white shadow">
+                                        <div class="card-body">
+                                            BPO minimal average value :
+                                            <div class="text-white-50">
+                                                <p th:text="${minimalReactiveConductivePowerConsumedValue}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+
+                    </div>
+            </div>
+        </div>
+
+            <img src="" id="chart1"  class="img-fluid">
+    </div>
+            <div class="col-sm-3">
+                    <div class="card bg-secondary text-white shadow">
+                        <div class="card-body">
+                            Minimal value :
+                            <div class="text-white-50" id="MinimalValueId1">
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card bg-secondary text-white shadow">
+                    <div class="card-body">
+                        Maximum value :
+                        <div class="text-white-50" id="MaximumValueId1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card bg-secondary text-white shadow">
+                    <div class="card-body">
+                        Average value :
+                        <div class="text-white-50" id="AverageValueId1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card bg-secondary text-white shadow">
+                    <div class="card-body">
+                        Time period :
+                        <div class="text-white-50" id="DatePeriodValueId1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <div class="row shadow" style="padding-top:80px">
+        <div class="col-sm-12" style="padding-bottom:30px">
+            <li class="list-group-item list-group-item-secondary">CP - Active energy consumption summed up continuously day by day</li>
+            <img src="" id="chart2" class="img-fluid">
+        </div>
+        <div class="col-sm-3">
+            <div class="card bg-secondary text-white shadow">
+                <div class="card-body">
+                    Minimal value :
+                    <div class="text-white-50" id="MinimalValueId2">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card bg-secondary text-white shadow">
+                <div class="card-body">
+                    Maximum value :
+                    <div class="text-white-50" id="MaximumValueId2">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card bg-secondary text-white shadow">
+                <div class="card-body">
+                    Average value :
+                    <div class="text-white-50" id="AverageValueId2">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card bg-secondary text-white shadow">
+                <div class="card-body">
+                    Time period :
+                    <div class="text-white-50" id="DatePeriodValueId2">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row shadow" style="padding-top:80px">
+        <div class="col-sm-12" style="padding-bottom:30px">
+            <li class="list-group-item list-group-item-secondary">CO - Active energy given summed up continuously day by day</li>
+            <img src="" id="chart3" class="img-fluid">
+        </div>
+        <div class="col-sm-3">
+            <div class="card bg-secondary text-white shadow">
+                <div class="card-body">
+                    Minimal value :
+                    <div class="text-white-50" id="MinimalValueId3">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card bg-secondary text-white shadow">
+                <div class="card-body">
+                    Maximum value :
+                    <div class="text-white-50" id="MaximumValueId3">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card bg-secondary text-white shadow">
+                <div class="card-body">
+                    Average value :
+                    <div class="text-white-50" id="AverageValueId3">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card bg-secondary text-white shadow">
+                <div class="card-body">
+                    Time period :
+                    <div class="text-white-50" id="DatePeriodValueId3">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row shadow" style="padding-top:80px">
+        <div class="col-sm-12" style="padding-bottom:30px">
+            <li class="list-group-item list-group-item-secondary">BPP - Reactive inductive-energy consumption summed up continuously day by day</li>
+            <img src="" id="chart4" class="img-fluid">
+        </div>
+        <div class="col-sm-3">
+            <div class="card bg-secondary text-white shadow">
+                <div class="card-body">
+                    Minimal value :
+                    <div class="text-white-50" id="MinimalValueId4">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card bg-secondary text-white shadow">
+                <div class="card-body">
+                    Maximum value :
+                    <div class="text-white-50" id="MaximumValueId4">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card bg-secondary text-white shadow">
+                <div class="card-body">
+                    Average value :
+                    <div class="text-white-50" id="AverageValueId4">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card bg-secondary text-white shadow">
+                <div class="card-body">
+                    Time period :
+                    <div class="text-white-50" id="DatePeriodValueId4">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row shadow" style="padding-top:80px">
+        <div class="col-sm-12" style="padding-bottom:30px">
+            <li class="list-group-item list-group-item-secondary">BPO - Reactive inductive-energy given summed up continuously day by day</li>
+            <img src="" id="chart5" class="img-fluid">
+        </div>
+        <div class="col-sm-3">
+            <div class="card bg-secondary text-white shadow">
+                <div class="card-body">
+                    Minimal value :
+                    <div class="text-white-50" id="MinimalValueId5">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card bg-secondary text-white shadow">
+                <div class="card-body">
+                    Maximum value :
+                    <div class="text-white-50" id="MaximumValueId5">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card bg-secondary text-white shadow">
+                <div class="card-body">
+                    Average value :
+                    <div class="text-white-50" id="AverageValueId5">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card bg-secondary text-white shadow">
+                <div class="card-body">
+                    Time period :
+                    <div class="text-white-50" id="DatePeriodValueId5">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row shadow" style="padding-top:80px">
+        <div class="col-sm-12" style="padding-bottom:30px">
+            <li class="list-group-item list-group-item-secondary">BOO - Reactive conductive-energy consumption summed up continuously day by day</li>
+            <img src="" id="chart6" class="img-fluid">
+        </div>
+        <div class="col-sm-3">
+            <div class="card bg-secondary text-white shadow">
+                <div class="card-body">
+                    Minimal value :
+                    <div class="text-white-50" id="MinimalValueId6">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card bg-secondary text-white shadow">
+                <div class="card-body">
+                    Maximum value :
+                    <div class="text-white-50" id="MaximumValueId6">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card bg-secondary text-white shadow">
+                <div class="card-body">
+                    Average value :
+                    <div class="text-white-50" id="AverageValueId6">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card bg-secondary text-white shadow">
+                <div class="card-body">
+                    Time period :
+                    <div class="text-white-50" id="DatePeriodValueId6">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row shadow" style="padding-top:80px">
+        <div class="col-sm-12" style="padding-bottom:30px">
+            <li class="list-group-item list-group-item-secondary">BOP - Reactive conductive-energy given summed up continuously day by day</li>
+            <img src="" id="chart7" class="img-fluid">
+        </div>
+        <div class="col-sm-3">
+            <div class="card bg-secondary text-white shadow">
+                <div class="card-body">
+                    Minimal value :
+                    <div class="text-white-50" id="MinimalValueId7">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card bg-secondary text-white shadow">
+                <div class="card-body">
+                    Maximum value :
+                    <div class="text-white-50" id="MaximumValueId7">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card bg-secondary text-white shadow">
+                <div class="card-body">
+                    Average value :
+                    <div class="text-white-50" id="AverageValueId7">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card bg-secondary text-white shadow">
+                <div class="card-body">
+                    Time period :
+                    <div class="text-white-50" id="DatePeriodValueId7">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <script>
-        document.getElementById('chart1').src=document.getElementById('hiddenImgId').innerHTML
+        document.getElementById('chart1').src=document.getElementById('hiddenImgId1').innerHTML
+    </script>
+    <script>
+        document.getElementById('chart2').src=document.getElementById('hiddenImgId2').innerHTML
+    </script>
+    <script>
+        document.getElementById('chart3').src=document.getElementById('hiddenImgId3').innerHTML
+    </script>
+    <script>
+        document.getElementById('chart4').src=document.getElementById('hiddenImgId4').innerHTML
+    </script>
+    <script>
+        document.getElementById('chart5').src=document.getElementById('hiddenImgId5').innerHTML
+    </script>
+    <script>
+        document.getElementById('chart6').src=document.getElementById('hiddenImgId6').innerHTML
+    </script>
+    <script>
+        document.getElementById('chart7').src=document.getElementById('hiddenImgId7').innerHTML
     </script>
 
-    <p><a href="/file">Click here</a> to add another file</p>
+
+    <script>
+        document.getElementById('MinimalValueId1').innerHTML=document.getElementById('hiddenMinimalValueId1').innerHTML
+    </script>
+    <script>
+        document.getElementById('MinimalValueId2').innerHTML=document.getElementById('hiddenMinimalValueId2').innerHTML
+    </script>
+    <script>
+        document.getElementById('MinimalValueId3').innerHTML=document.getElementById('hiddenMinimalValueId3').innerHTML
+    </script>
+    <script>
+        document.getElementById('MinimalValueId4').innerHTML=document.getElementById('hiddenMinimalValueId4').innerHTML
+    </script>
+    <script>
+        document.getElementById('MinimalValueId5').innerHTML=document.getElementById('hiddenMinimalValueId5').innerHTML
+    </script>
+    <script>
+        document.getElementById('MinimalValueId6').innerHTML=document.getElementById('hiddenMinimalValueId6').innerHTML
+    </script>
+    <script>
+        document.getElementById('MinimalValueId7').innerHTML=document.getElementById('hiddenMinimalValueId7').innerHTML
+    </script>
+
+
+    <script>
+        document.getElementById('MaximumValueId1').innerHTML=document.getElementById('hiddenMaximumValueId1').innerHTML
+    </script>
+    <script>
+        document.getElementById('MaximumValueId2').innerHTML=document.getElementById('hiddenMaximumValueId2').innerHTML
+    </script>
+    <script>
+        document.getElementById('MaximumValueId3').innerHTML=document.getElementById('hiddenMaximumValueId3').innerHTML
+    </script>
+    <script>
+        document.getElementById('MaximumValueId4').innerHTML=document.getElementById('hiddenMaximumValueId4').innerHTML
+    </script>
+    <script>
+        document.getElementById('MaximumValueId5').innerHTML=document.getElementById('hiddenMaximumValueId5').innerHTML
+    </script>
+    <script>
+        document.getElementById('MaximumValueId6').innerHTML=document.getElementById('hiddenMaximumValueId6').innerHTML
+    </script>
+    <script>
+        document.getElementById('MaximumValueId7').innerHTML=document.getElementById('hiddenMaximumValueId7').innerHTML
+    </script>
+
+
+    <script>
+        document.getElementById('AverageValueId1').innerHTML=document.getElementById('hiddenAverageValueId1').innerHTML
+    </script>
+    <script>
+        document.getElementById('AverageValueId2').innerHTML=document.getElementById('hiddenAverageValueId2').innerHTML
+    </script>
+    <script>
+        document.getElementById('AverageValueId3').innerHTML=document.getElementById('hiddenAverageValueId3').innerHTML
+    </script>
+    <script>
+        document.getElementById('AverageValueId4').innerHTML=document.getElementById('hiddenAverageValueId4').innerHTML
+    </script>
+    <script>
+        document.getElementById('AverageValueId5').innerHTML=document.getElementById('hiddenAverageValueId5').innerHTML
+    </script>
+    <script>
+        document.getElementById('AverageValueId6').innerHTML=document.getElementById('hiddenAverageValueId6').innerHTML
+    </script>
+    <script>
+        document.getElementById('AverageValueId7').innerHTML=document.getElementById('hiddenAverageValueId7').innerHTML
+    </script>
+
+
+    <script>
+        document.getElementById('DatePeriodValueId1').innerHTML=document.getElementById('hiddenDatePeriodValueId1').innerHTML
+    </script>
+    <script>
+        document.getElementById('DatePeriodValueId2').innerHTML=document.getElementById('hiddenDatePeriodValueId2').innerHTML
+    </script>
+    <script>
+        document.getElementById('DatePeriodValueId3').innerHTML=document.getElementById('hiddenDatePeriodValueId3').innerHTML
+    </script>
+    <script>
+        document.getElementById('DatePeriodValueId4').innerHTML=document.getElementById('hiddenDatePeriodValueId4').innerHTML
+    </script>
+    <script>
+        document.getElementById('DatePeriodValueId5').innerHTML=document.getElementById('hiddenDatePeriodValueId5').innerHTML
+    </script>
+    <script>
+        document.getElementById('DatePeriodValueId6').innerHTML=document.getElementById('hiddenDatePeriodValueId6').innerHTML
+    </script>
+    <script>
+        document.getElementById('DatePeriodValueId7').innerHTML=document.getElementById('hiddenDatePeriodValueId7').innerHTML
+    </script>
+    <br>
+
+    <a href="/file" class="btn btn-primary" style="margin=bottom:20px">Add another file</a>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+        Average Powers for all the data
+    </button>
 
 </div>
 
-<div class="jumbotron text-center" style="margin-bottom:0">
-    <p>Made by Bartosz Golec</p>
-</div>
+<div class="jumbotron text-center" style="margin-top:20px">
+    <p>Author : Bartosz Golec</p>
+    <p>Promoter : Doctor of Engineering Krzysztof Piątek</p>
+    <p>Faculty of Electrical Engineering,
+        Automatics, Computer Science
+        and Biomedical Engineering</p>
+    <p>Department of Power Electronics and Energy Control Systems </p></div>
 </body>
 </html>
 

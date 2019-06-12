@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
     <title>TEMPLATE</title>
@@ -51,16 +51,52 @@ height: 100%;}
 </nav>
 
 <div class="container">
-    <ul class="list-group">
-        <li class="list-group-item list-group-item-warning">Wrong data input</li>
-    </ul>
+<div class="row">
+    <div class="col-md-12">
+    <li class="list-group-item list-group-item-info" style="margin-top: 10px; margin-bottom: 10px;">
+        <p th:text="'All loads from OpenDss model with filepath :  : ' + ${openDssModelFilePath}" />
+    </li>
+</div>
+</div>
+    <div class="row">
+        <a class="btn btn-success" href="#" th:href="@{/createLoads}" style="margin-right:10px"> Add Loads </a>
+        <a class="btn btn-primary" href="#" th:href="@{/editLoads}" th:classappend="${listOfLoads.empty} ? 'disabled' : ''" style="margin-right:10px"> Edit Loads </a>
+        <a class="btn btn-primary" href="/plotResults" style="margin-right:10px">Plot voltage for certain model</a>
+    </div>
 
-<h4>Please enter correct data</h4>
-<table>
-    <tr>
-        <td><a href="/entity">Retry</a></td>
-    </tr>
-</table>
+    <div class="row">
+    <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th> Load </th>
+            <th> Bus </th>
+            <th> Phases </th>
+            <!--<th> Conn </th>-->
+            <!--<th> Model </th>-->
+            <th> Voltage </th>
+            <th> Active power </th>
+            <th> Reactive power </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${listOfLoads.empty}">
+            <td colspan="2"> No Data Available </td>
+        </tr>
+        <tr th:each="load : ${listOfLoads}">
+            <td><span th:text="${load.signature}"> Load </span></td>
+            <td><span th:text="${load.bus}"> Bus </span></td>
+            <td><span th:text="${load.phases}"> Phases </span></td>
+            <!--<td><span th:text="${load.conn}"> Conn </span></td>-->
+            <!--<td><span th:text="${load.model}"> Model </span></td>-->
+            <td><span th:text="${load.voltage}"> Voltage </span></td>
+            <td><span th:text="${load.activePower}"> Active power </span></td>
+            <td><span th:text="${load.reactivePower}"> Reactive power </span></td>
+        </tr>
+        </tbody>
+    </table>
+        <a class="btn btn-info float-left" href="/chooseOpenDssModelToBeUpdated">See another models loads</a>
+
+    </div>
 </div>
 
 <div class="jumbotron text-center" style="margin-bottom:0">
@@ -72,4 +108,3 @@ height: 100%;}
     <p>Department of Power Electronics and Energy Control Systems </p></div>
 </body>
 </html>
-

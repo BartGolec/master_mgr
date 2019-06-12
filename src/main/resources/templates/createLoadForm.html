@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <title>TEMPLATE</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+    <style>
+        .specialClass {
+background-image: url("https://i.ibb.co/Hr95MfJ/agh-logo.png");
+background-size: contain;
+background-repeat: no-repeat;
+height: 100%;}
+    </style>
+</head>
+<body>
+<div class="jumbotron text-center specialClass" style="margin-bottom:0">
+    <h1>Application for analysis a distribution network <br>using OpenDSS simulator</h1>
+    <p>Master thesis project</p>
+</div>
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <a class="navbar-brand" href="/"><i class="fas fa-home"></i>
+        Master Thesis</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    Actions
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/data/all">See all data</a>
+                    <a class="dropdown-item" href="/seeDataFromCertainNode">See data for certain node</a>
+                    <a class="dropdown-item" href="/entity">Add data manually</a>
+                    <a class="dropdown-item" href="/file">Upload a file</a>
+                    <a class="dropdown-item" href="/chooseOpenDssModelToBeUpdated">OpenDSS interaction</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/applicationManual">Application manual</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3> Add Load </h3>
+            <p>Following page allows to add new Load to the OpenDss model.</p>
+            <p>Remember to put data exacly in the same manner as in the form placeholders. Otherwise the data won't be interpreted properly as the load o the grid.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <a class="btn btn-info" href="#" th:href="@{/getAllLoadsFromOpenDssModel}" style="margin-bottom:20px"> Back to All Loads </a>
+            <form action="#" class="form-horizontal"
+                  th:action="@{/createdLoad}"
+                  th:object="${newLoad}"
+                  method="post">
+                <div class="form-group w-50">
+                    <label for="signature">Load:</label>
+                    <input type="text" class="form-control" id="signature" th:field="*{signature}" required title="Fill in new Load to be created i.e Load.R2000nn_1" placeholder="Load.R2000nn_1">
+                </div>
+                <div class="form-group w-50">
+                    <label for="bus">Bus:</label>
+                    <input type="text" class="form-control" id="bus" th:field="*{bus}" required title="Fill in bus to be created i.e Bus1=R2000nn.1" placeholder="Bus1=R2000nn.1">
+                </div>
+                <div class="form-group w-50">
+                    <label for="phases">Phases:</label>
+                    <input type="text" class="form-control" id="phases" th:field="*{phases}" required title="Fill in number of phases i.e Phases=1" placeholder="Phases=1">
+                </div>
+                <div class="form-group w-50">
+                    <label for="voltage">Voltage:</label>
+                    <input type="text" class="form-control" id="voltage" th:field="*{voltage}"  required title="Fill in voltage value i.e kV=100" placeholder="kV=100">
+                </div>
+                <div class="form-group w-50">
+                    <label for="activePower">Active power:</label>
+                    <input type="text" class="form-control" id="activePower" th:field="*{activePower}" required title="Fill in active power value i.e kW=100" placeholder="kW=100">
+                </div>
+                <div class="form-group w-50">
+                    <label for="reactivePower">Reactive power:</label>
+                    <input type="text" class="form-control" id="reactivePower" th:field="*{reactivePower}" required title="Fill in reactive power value i.e kvar=100" placeholder="kvar=100">
+                </div>
+                <fieldset>
+					<span class="pull-right">
+						    <input type="submit" id="submitButton" class="btn btn-success" th:value="Save">
+						    <input type="reset" id="resetButton" class="btn btn-danger" th:value="Reset"/>
+					</span>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="jumbotron text-center" style="margin-bottom:0">
+    <p>Author : Bartosz Golec</p>
+    <p>Promoter : Doctor of Engineering Krzysztof Piątek</p>
+    <p>Faculty of Electrical Engineering,
+        Automatics, Computer Science
+        and Biomedical Engineering</p>
+    <p>Department of Power Electronics and Energy Control Systems </p>
+</div>
+</body>
+</html>

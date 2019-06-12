@@ -14,11 +14,14 @@
 background-image: url("https://i.ibb.co/Hr95MfJ/agh-logo.png");
 background-size: contain;
 background-repeat: no-repeat;
-height: 100%;}
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
     </style>
 </head>
 <body>
-<div class="jumbotron text-center specialClass" style="margin-bottom:0">
+<div class="jumbotron text-center specialClass img-fluid" style="margin-bottom:0">
     <h1>Application for analysis a distribution network <br>using OpenDSS simulator</h1>
     <p>Master thesis project</p>
 </div>
@@ -37,18 +40,25 @@ height: 100%;}
                 </a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="/data/all">See all data</a>
-                    <a class="dropdown-item" href="/file">Upload a file</a>
+                    <a class="dropdown-item" href="/seeDataFromCertainNode">See data for certain node</a>
                     <a class="dropdown-item" href="/entity">Add data manually</a>
+                    <a class="dropdown-item" href="/file">Upload a file</a>
+                    <a class="dropdown-item" href="/chooseOpenDssModelToBeUpdated">OpenDSS interaction</a>
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">About the author</a>
+                <a class="nav-link" href="/applicationManual">Application manual</a>
             </li>
         </ul>
     </div>
 </nav>
 
 <div class="container">
+    <br>
+    <div class="row list-group-item list-group-item-info" style="margin-bottom:10px">
+    <p class="font-weight-bold"> Application allows to integrate with OpenDSS distribution system simulator in order to perform multiple power grid simulations based on given model. For further description regarding application usage go to <a href="/applicationManual" target="_blank">Application manual</a> tab.</p>
+    </div>
+    <div class="row list-group-item list-group-item-secondary" style="margin-bottom:20px">
     <h2>Master thesis description</h2>
     <p>  &nbsp &nbsp &nbsp &nbsp &nbsp Dla zdefiniowanego modelu sieci dystrybucyjnej (udostępnione dane linii kablowej K-969) aplikacja powinna przeprowadzić symulację zmian napięcia w węzłach. Do przeprowadzenia symulacji wykorzystany będzie system OpenDSS, model sieci zostanie udostępniony. Aplikacja powinna uaktualnić plik modelu o moce odbiorników, uruchomić OpenDSS w celu przeprowadzenia symulacji, odczytać i zaprezentować w formie graficznej wyniki – zmienność napięć w węzłach. Aplikacja powinna umożliwić odczyt danych pomiarowych zebranych przez liczniki bilansujące (format CSV, docelowo XLS) dla wybranych punktów. Dane powinny być gromadzone w bazie danych (dowolna technologia). Plik z danymi pomiarowymi należy zaimportować do bazy danych i logicznie powiązać z węzłem w sieci którego te pomiary dotyczą. Należy przewidzieć sytuację, że do danego węzła dostępne będą pliki z pomiarami z różnych dni (różne daty). Powinna istnieć też możliwość „ręcznego” podglądu i modyfikacji danych zapisanych w bazie.
         Każdy węzeł powinien mieć zdefiniowaną maksymalną i minimalną moc (czynną i bierna ew. współczynnik mocy). Dla węzłów które mają dostępne pomiary, należy zaktualizować model o odczytane wartości mocy czynnej i biernej (lub mocy czynnej i współczynnika mocy, w zależności co będzie dostępne). Użytkownik powinien wskazać dzień i godzinę (z dostępnego zbioru pomiarów) i jeśli dane są dostępne to powinny być wykorzystane w symulacji.
@@ -61,10 +71,15 @@ height: 100%;}
     </p>
     <p>4. Zmienność przy rzeczywistych zmianach mocy odbiorów – dla wybranego zakresu dat należy znaleźć maksymalną i minimalną moc odbiorników dostępną z pomiarów, zakładając minimalną i maksymalną moc odbiorów niemierzonych; wynikiem jest zakres zmian napięcia, prezentacja j.w
     </p>
+    </div>
 </div>
 
 <div class="jumbotron text-center" style="margin-bottom:0">
-    <p>Made by Bartosz Golec</p>
-</div>
+    <p>Author : Bartosz Golec</p>
+    <p>Promoter : Doctor of Engineering Krzysztof Piątek</p>
+    <p>Faculty of Electrical Engineering,
+        Automatics, Computer Science
+        and Biomedical Engineering</p>
+    <p>Department of Power Electronics and Energy Control Systems </p></div>
 </body>
 </html>

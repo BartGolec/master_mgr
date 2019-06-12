@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
     <title>TEMPLATE</title>
@@ -51,17 +51,44 @@ height: 100%;}
 </nav>
 
 <div class="container">
-    <ul class="list-group">
-        <li class="list-group-item list-group-item-warning">Wrong data input</li>
-    </ul>
 
-<h4>Please enter correct data</h4>
-<table>
-    <tr>
-        <td><a href="/entity">Retry</a></td>
-    </tr>
-</table>
+    <h5 class="list-group-item list-group-item-info" style="margin-top: 10px; margin-bottom: 10px;">
+        All database records
+    </h5>
+
+    <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th> Filename </th>
+            <th> Date </th>
+            <th> Pmax </th>
+            <th> CP </th>
+            <th> CO </th>
+            <th> BPP </th>
+            <th> BPO </th>
+            <th> BOO </th>
+            <th> BOP </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${allBatchDataList.empty}">
+            <td colspan="2"> No Data Available </td>
+        </tr>
+        <tr th:each="batchDataEntity : ${allBatchDataList}">
+            <td><span th:text="${batchDataEntity.fileName}"> Filename </span></td>
+            <td><span th:text="${batchDataEntity.date}"> Date </span></td>
+            <td><span th:text="${batchDataEntity.Pmax}"> Pmax </span></td>
+            <td><span th:text="${batchDataEntity.CP}"> CP </span></td>
+            <td><span th:text="${batchDataEntity.CO}"> CO </span></td>
+            <td><span th:text="${batchDataEntity.BPP}"> BPP </span></td>
+            <td><span th:text="${batchDataEntity.BPO}"> BPO </span></td>
+            <td><span th:text="${batchDataEntity.BOO}"> BOO </span></td>
+            <td><span th:text="${batchDataEntity.BOP}"> BOP </span></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
+
 
 <div class="jumbotron text-center" style="margin-bottom:0">
     <p>Author : Bartosz Golec</p>
@@ -72,4 +99,3 @@ height: 100%;}
     <p>Department of Power Electronics and Energy Control Systems </p></div>
 </body>
 </html>
-

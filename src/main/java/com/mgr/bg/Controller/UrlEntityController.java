@@ -1,13 +1,16 @@
 package com.mgr.bg.Controller;
 
+import com.mgr.bg.Model.BatchDataEntity;
 import com.mgr.bg.Model.SingleDataEntity;
+import com.mgr.bg.Repository.BatchDataRepository;
 import com.mgr.bg.Repository.SingleDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Created by Bartosz on 11/24/2018.
@@ -22,6 +25,9 @@ public class UrlEntityController {
     @Autowired
     private SingleDataRepository singleDataRepository;
     //localhost:8080/data/add?date=01-01-2019&Pmax=20&BOO=2&BOP=4&BPO=6&BPP=19&CO=203&CP=23
+
+    @Autowired
+    private BatchDataRepository batchDataRepository;
 
     @GetMapping(path="/add") // Map ONLY GET Requests
     public @ResponseBody
@@ -50,11 +56,31 @@ public class UrlEntityController {
         return "Saved : " + singleDataRepository.findById(singleDataEntity.getId());
     }
 
+    @PostMapping(value = "/retrieveDataFromCertainNode")
+    public String submitDataFromCertainNode(@ModelAttribute("batchDataEntity") BatchDataEntity batchDataEntity,
+                                            BindingResult result, ModelMap model) {
+        if (result.hasErrors()) {
+            return "wrongDataInputError";
+        }
+
+        model.addAttribute("fileName", batchDataEntity.getFileName());
+
+        List<BatchDataEntity> batchDataEntityList = batchDataRepository.findByFileName(batchDataEntity.getFileName());
+        model.addAttribute("batchDataList", batchDataEntityList);
+
+        return "retrieveDataFromCertainNodeView";
+    }
+
     //localhost:8080/demo/all
     @GetMapping(path="/all")
-    public @ResponseBody Iterable<SingleDataEntity> getAllEntities() {
-        // This returns a JSON or XML with the users
+    public String  getAllEntities(@ModelAttribute("batchDataEntity") BatchDataEntity batchDataEntity, BindingResult result, ModelMap model) {
+        if(result.hasErrors()){
+            return "wrongDataInputError";
+        }
 
-        return singleDataRepository.findAll();
+        List<BatchDataEntity> batchDataEntityList = batchDataRepository.findAll();
+        model.addAttribute("allBatchDataList", batchDataEntityList);
+
+        return "retrieveAllData";
     }
 }

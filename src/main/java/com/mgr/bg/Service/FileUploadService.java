@@ -16,6 +16,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -79,8 +81,12 @@ public class FileUploadService implements FileUpload {
                 String line = "";
                 fileReader = new BufferedReader(new FileReader(filePath));
 
-                // Read CSV header;
+                // Read CSV header and 2 redundant lines;
                 fileReader.readLine();
+                fileReader.readLine();
+                fileReader.readLine();
+                fileReader.readLine();
+
 
                 while((line = fileReader.readLine())!=null){
                     String[] tokens = line.split(";");
@@ -95,13 +101,8 @@ public class FileUploadService implements FileUpload {
                                 tokens[BOO_IDX],
                                 tokens[BOP_IDX]
                         );
-
-                        log.info("Csv object red : " + singleDataObject.toString());
                         singleDataObjectList.add(singleDataObject);
                     }
-                }
-                for(SingleDataObject singleDataObject : singleDataObjectList){
-                    System.out.println(singleDataObject.toString());
                 }
                 return singleDataObjectList;
 
@@ -121,6 +122,9 @@ public class FileUploadService implements FileUpload {
 
     @Override
     public void saveBatchDataFromFile(List<SingleDataObject> singleDataObjectList, MultipartFile file) {
+        if(!(batchDataRepository.findByFileName(file.getOriginalFilename()).size() == 0)){
+            log.info(file.getOriginalFilename() +  " already exists in the database!. The file date wasn't saved.");
+        }
         if(batchDataRepository.findByFileName(file.getOriginalFilename()).size() == 0) {
             for (SingleDataObject singleDataObject : singleDataObjectList) {
                 BatchDataEntity batchDataEntity = new BatchDataEntity(
@@ -149,29 +153,28 @@ public class FileUploadService implements FileUpload {
         System.out.println(fileDataCheckboxes.isBpp());
         System.out.println(fileDataCheckboxes.isBoo());
 
-
         List<FileData> fileDataList = new ArrayList<>();
 
+        if(fileDataCheckboxes.isPmax()){
+            fileDataList.add(FileData.PMAX);
+        }
+        if(fileDataCheckboxes.isCp()){
+            fileDataList.add(FileData.CP);
+        }
+        if(fileDataCheckboxes.isCo()){
+            fileDataList.add(FileData.CO);
+        }
+        if(fileDataCheckboxes.isBpp()){
+            fileDataList.add(FileData.BPP);
+        }
+        if(fileDataCheckboxes.isBpo()){
+            fileDataList.add(FileData.BPO);
+        }
         if(fileDataCheckboxes.isBoo()){
             fileDataList.add(FileData.BOO);
         }
         if(fileDataCheckboxes.isBop()){
             fileDataList.add(FileData.BOP);
-        }
-        if(fileDataCheckboxes.isBpo()){
-            fileDataList.add(FileData.BPO);
-        }
-        if(fileDataCheckboxes.isBpp()){
-            fileDataList.add(FileData.BPP);
-        }
-        if(fileDataCheckboxes.isCo()){
-            fileDataList.add(FileData.CO);
-        }
-        if(fileDataCheckboxes.isCp()){
-            fileDataList.add(FileData.CP);
-        }
-        if(fileDataCheckboxes.isPmax()){
-            fileDataList.add(FileData.PMAX);
         }
         System.out.println(fileDataList.size());
         return fileDataList;
@@ -179,6 +182,7 @@ public class FileUploadService implements FileUpload {
 
     @Override
     public String convertPngToBase64(String filePath) {
+        log.info("Convert PNG to Base64 from file path : " + filePath);
         String base64 = "";
         try {
             InputStream inputStream = new FileInputStream(new File(filePath));
@@ -189,4 +193,69 @@ public class FileUploadService implements FileUpload {
         }
         return base64;
     }
+
+    @Override
+    public List<BatchDataEntity> convertEnergyListToPowerList(List<BatchDataEntity> batchDataEntityList) {
+        List <BatchDataEntity> batchEnergyDataList = new ArrayList<>();
+
+        for(int i = 0; i<batchDataEntityList.size()-2; i++){
+            BatchDataEntity batchDataEntityForEnergy = new BatchDataEntity();
+            batchDataEntityForEnergy.setFileName(batchDataEntityList.get(i).getFileName());
+            batchDataEntityForEnergy.setDate(batchDataEntityList.get(i).getDate());
+            batchDataEntityForEnergy.setPmax(batchDataEntityList.get(i).getPmax());
+
+            if(batchDataEntityList.get(i + 1).getCP() != 0 || batchDataEntityList.get(i).getCP() !=0){
+                double cp = BigDecimal.valueOf((batchDataEntityList.get(i + 1).getCP() - batchDataEntityList.get(i).getCP()) / 24).setScale(2, RoundingMode.HALF_UP).doubleValue();
+            batchDataEntityForEnergy.setCP(cp);
+        }
+            else{
+                batchDataEntityForEnergy.setCP(0.0);
+            }
+
+            if(batchDataEntityList.get(i + 1).getCO() != 0 || batchDataEntityList.get(i).getCO() !=0){
+                double co = BigDecimal.valueOf((batchDataEntityList.get(i + 1).getCO() - batchDataEntityList.get(i).getCO()) / 24).setScale(2, RoundingMode.HALF_UP).doubleValue();
+                batchDataEntityForEnergy.setCO(co);
+            }
+            else{
+                batchDataEntityForEnergy.setCO(0.0);
+            }
+
+            if(batchDataEntityList.get(i + 1).getBPP() != 0 || batchDataEntityList.get(i).getBPP() !=0){
+                double bpp = BigDecimal.valueOf((batchDataEntityList.get(i + 1).getBPP() - batchDataEntityList.get(i).getBPP()) / 24).setScale(2, RoundingMode.HALF_UP).doubleValue();
+                batchDataEntityForEnergy.setBPP(bpp);
+            }
+            else{
+                batchDataEntityForEnergy.setBPP(0.0);
+            }
+
+            if(batchDataEntityList.get(i + 1).getBPO() != 0 || batchDataEntityList.get(i).getBPO() !=0){
+                double bpo = BigDecimal.valueOf((batchDataEntityList.get(i + 1).getBPO() - batchDataEntityList.get(i).getBPO()) / 24).setScale(2, RoundingMode.HALF_UP).doubleValue();
+                batchDataEntityForEnergy.setBPO(bpo);
+            }
+            else{
+                batchDataEntityForEnergy.setBPO(0.0);
+            }
+
+            if(batchDataEntityList.get(i + 1).getBOO() != 0 || batchDataEntityList.get(i).getBOO() !=0){
+                double boo = BigDecimal.valueOf((batchDataEntityList.get(i + 1).getBOO() - batchDataEntityList.get(i).getBOO()) / 24).setScale(2, RoundingMode.HALF_UP).doubleValue();
+                batchDataEntityForEnergy.setBOO(boo);
+            }
+            else{
+                batchDataEntityForEnergy.setBOO(0.0);
+            }
+
+            if(batchDataEntityList.get(i + 1).getBOP() != 0 || batchDataEntityList.get(i).getBOP() !=0){
+                double bop = BigDecimal.valueOf(((batchDataEntityList.get(i + 1).getBOP() * 1000) - (batchDataEntityList.get(i).getBOP() * 1000)) / 24).setScale(2, RoundingMode.HALF_UP).doubleValue();
+                batchDataEntityForEnergy.setBOP(bop);
+            }
+            else{
+                batchDataEntityForEnergy.setBOP(0.0);
+            }
+            batchEnergyDataList.add(batchDataEntityForEnergy);
+        }
+
+        return batchEnergyDataList;
+    }
+
+
 }

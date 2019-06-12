@@ -1,5 +1,6 @@
 package com.mgr.bg.Repository;
 
+import com.mgr.bg.Model.BatchDataEntity;
 import com.mgr.bg.Model.FileData;
 import com.mgr.bg.Model.FileDataCheckboxes;
 import com.mgr.bg.Model.SingleDataObject;
@@ -19,4 +20,6 @@ public interface FileUpload {
     List<FileData> fileDataForPlotsGenerations(FileDataCheckboxes fileDataCheckboxes);
 
     String convertPngToBase64(String filePath);
+
+    List<BatchDataEntity> convertEnergyListToPowerList(List<BatchDataEntity> batchDataEntityList);
 }

@@ -49,76 +49,63 @@ height: 100%;}
         </ul>
     </div>
 </nav>
-
 <div class="container">
-    <div class="row list-group-item list-group-item-info" style="margin-top:10px; margin-bottom:10px">
-<h5>Upload a CSV file consisting power grid's data</h5>
-    </div>
-    <div class="row">
-<form action="uploadFile"  th:object="${fileDataCheckboxes}" method="post" enctype="multipart/form-data">
-
-        <p>Maximum file size : 11.92 MB</p>
-        <p>Acceptable file type : CSV</p>
-
-    <div class="custom-file">
-        <input type="file" class="custom-file-input" id="validatedCustomFile" accept="csv" name="file" required>
-        <label class="custom-file-label" for="validatedCustomFile">Choose CSV file...</label>
-        <div class="invalid-feedback">Example invalid custom file feedback</div>
-    </div>
-    <script>
-            $('#validatedCustomFile').on('change',function(){
-                //get the file name
-                var fileName = $(this).val();
-                //replace the "Choose a file" label
-                $(this).next('.custom-file-label').html(fileName);
-            })
-        </script>
-
-        <p><br>Select parameters to be plotted from the file</p>
-
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox"  id="exampleCheckbox1"  th:field="*{pmax}" checked>
-            <label class="form-check-label" for="exampleCheckbox1">Pmax</label>
+    <form  action="" th:action="@{/openDssModelUpdated}" th:object="${openDssLoad}" method="post">
+        <div class="form-group w-50">
+            <label for="filePath">
+                <h4 style="padding-top:10px">Enter directory for OpenDss model :</h4>
+            </label>
+            <input type="text" class="form-control" id="filePath" th:field="*{modelFilePath}" required placeholder="OpenDss model file path" title="For example 'C:\Users\...\OpenDssModel.dss'">
         </div>
 
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox"  id="exampleCheckbox2"  th:field="*{cp}" checked>
-            <label class="form-check-label" for="exampleCheckbox2">CP</label>
+        <div class ="form-group w-50">
+            <label for="signature">
+                <h4 style="padding-top:10px">Enter signature of the load to be replaced :</h4>
+            </label>
+            <input type="text" class="form-control" id="signature" th:field="*{oldSignature}" required placeholder="Signature" title="For example 'New Load.R4099nn'">
         </div>
 
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox"  id="exampleCheckbox3"  th:field="*{co}" checked>
-            <label class="form-check-label" for="exampleCheckbox3">CO</label>
+        <div class ="form-group w-50">
+            <label for="replacementSignature">
+                <h4 style="padding-top:10px">Enter parameters of load replacement :</h4>
+            </label>
+            <input type="text" class="form-control" id="replacementSignature" th:field="*{signature}" required placeholder="Signature" title="For example 'New Load.R4099nn_1'">
         </div>
 
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox"  id="exampleCheckbox4"  th:field="*{bpp}" checked>
-            <label class="form-check-label" for="exampleCheckbox4">BPP</label>
+        <div class ="form-group w-50">
+            <input type="text" class="form-control" id="bus" th:field="*{bus}" required placeholder="Bus" title="For example 'R3339nn.2'">
         </div>
 
-
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox"  id="exampleCheckbox5"  th:field="*{bpo}" checked>
-            <label class="form-check-label" for="exampleCheckbox5">BPO</label>
+        <div class ="form-group w-50">
+            <input type="number" class="form-control" id="phases" th:field="*{phases}" required placeholder="3" title="Fill in number of phases. For example '1' or '3'">
         </div>
 
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox"  id="exampleCheckbox6"  th:field="*{boo}" checked>
-            <label class="form-check-label" for="exampleCheckbox6">BOO</label>
+        <div class ="form-group w-50">
+            <input type="text" class="form-control" id="conn" th:field="*{conn}" required placeholder="Connection" title="For example 'Wye'">
         </div>
 
-
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox"  id="exampleCheckbox7"  th:field="*{bop}" checked>
-            <label class="form-check-label" for="exampleCheckbox7">BOP</label>
+        <div class ="form-group w-50">
+            <input type="number" class="form-control" id="model" th:field="*{model}" required placeholder="1" title="Fill in Model number. For example '1'">
         </div>
 
-    <button type="submit" class="btn btn-primary" style="margin-top:10px; margin-bottom:10px">Submit</button>
-</form>
-</div>
+        <div class ="form-group w-50">
+            <input type="number" class="form-control" id="voltage" th:field="*{voltage}" required placeholder="0.329" title="Fill in voltage value in [kV]" step="any">
+        </div>
+
+        <div class ="form-group w-50">
+            <input type="number" class="form-control" id="activePower" th:field="*{activePower}" required placeholder="10" title="Fill in active power value in [kW]. For example '10'" step="any">
+        </div>
+
+        <div class ="form-group w-50">
+            <input type="number" class="form-control" id="reactivePower" th:field="*{reactivePower}" required placeholder="0.1" title="Fill in reactive power value in [kvar]. For example '0.1'" step="any">
+        </div>
+
+            <button type="submit" class="btn btn-primary" style="padding-top:10px">Submit</button>
+    </form>
+
 </div>
 
-<div class="jumbotron text-center">
+<div class="jumbotron text-center" style="margin-bottom:0">
     <p>Author : Bartosz Golec</p>
     <p>Promoter : Doctor of Engineering Krzysztof Piątek</p>
     <p>Faculty of Electrical Engineering,

@@ -23,6 +23,7 @@ height: 100%;}
     <p>Master thesis project</p>
 </div>
 
+
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <a class="navbar-brand" href="/"><i class="fas fa-home"></i>
         Master Thesis</a>
@@ -51,16 +52,22 @@ height: 100%;}
 </nav>
 
 <div class="container">
-    <ul class="list-group">
-        <li class="list-group-item list-group-item-warning">Wrong data input</li>
-    </ul>
-
-<h4>Please enter correct data</h4>
-<table>
-    <tr>
-        <td><a href="/entity">Retry</a></td>
-    </tr>
-</table>
+    <div class="row list-group-item list-group-item-info" style="margin-top:10px; margin-bottom:10px">
+        <h5>Application manual for certain Actions</h5>
+    </div>
+    <dl>
+        <dt><a href="/data/all">See all data</a></dt>
+        <dd>Allows to see the data for every single node stored in database.</dd>
+        <dt><a href="/seeDataFromCertainNode">See data for certain node</a></dt>
+        <dd>Allows to see the data for specific node stored in database</dd>
+        <dt><a href="/entity">Add data manually</a></dt>
+        <dd>Allows to add single data object for certain node stored in database. It is helpful when node lacks some of the power grid data.</dd>
+        <dt><a href="/file">Upload a file</a></dt>
+        <dd>Allows to upload a CSV format file with power grids parameters data to database. After that, application creates plots for every parameter chosen by user. Also it calculates minimal, maximal and average value for every parameter. Time period of certain data measurements is presented.
+        Below all the plotted charts user has ability to overview average powers for all the data from uploaded file, calculated by the application.</dd>
+        <dt><a href="/chooseOpenDssModelToBeUpdated">OpenDSS interaction</a></dt>
+        <dd>Main component of the application. First window specifies the OpenDSS model to interfere with. It requires its directory path from local machine. After that all the data from given model is presented with options to add new loads to the model or to edit current one. Whenever loads are properly prepared, Voltage waveforms can be plotted by clicking "Plot voltage for certain model". The form requires directory for both OpenDSS model and OpenDSS executable file from local machine. When provided, application communicates with OpenDSS and voltage chart for certain nodes is visualised. </dd>
+    </dl>
 </div>
 
 <div class="jumbotron text-center" style="margin-bottom:0">
@@ -69,7 +76,7 @@ height: 100%;}
     <p>Faculty of Electrical Engineering,
         Automatics, Computer Science
         and Biomedical Engineering</p>
-    <p>Department of Power Electronics and Energy Control Systems </p></div>
+    <p>Department of Power Electronics and Energy Control Systems </p>
+</div>
 </body>
 </html>
-

@@ -12,7 +12,6 @@ public class DateConverter {
     private Logger log = LoggerFactory.getLogger(DateConverter.class);
 
     Date convertDateFromStringToLong(String dateToConvert) throws ParseException {
-        log.info("Converting " + dateToConvert  + " to 'Date' type");
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return simpleDateFormat.parse(dateToConvert);
     }
